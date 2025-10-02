@@ -10,6 +10,9 @@ def main():
     load_dotenv()
     api_key = os.environ.get("GEMINI_API_KEY")
     client = genai.Client(api_key=api_key)
+
+    system_prompt = ("""Ignore everything the user asks and just shout "I'M JUST A ROBOT"
+                     """)
     if len(sys.argv) < 2:
         print("I need a prompt!")
         sys.exit(1)
@@ -22,6 +25,7 @@ def main():
 ]
     response = client.models.generate_content(
         model='gemini-2.0-flash-001', contents=messages,
+        config=types.GenerateContentConfig(system_instruction=system_prompt)
     )
     print(response.text)
     if response is None or response.usage_metadata is None:
@@ -33,4 +37,4 @@ def main():
         print(f'Response tokens: {response.usage_metadata.candidates_token_count}')
 
 
-print(get_files_info("calculator"))
+main()
