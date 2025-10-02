@@ -1,5 +1,6 @@
 import os
 from config import MAX_CHARS
+from google.genai import types
 
 def get_file_content(working_directory, file_path):
     abs_working_dir = os.path.abspath(working_directory)
@@ -18,3 +19,21 @@ def get_file_content(working_directory, file_path):
         return file_content_string
     except Exception as e:
         return f'Exception reading file: {e}'
+    
+schema_get_file_content = types.FunctionDeclaration(
+    name="get_file_content",
+    description="Gets content of the given file and return as a string, constrained to the working directory.",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "working_directory": types.Schema(
+                type=types.Type.STRING,
+                description="The directory to list files from, relative to the working directory. If not provided, lists files in the working directory itself.",
+            ),
+            "file_path": types.Schema(
+                type=types.Type.STRING,
+                description="Name of the file.",
+            ),
+        },
+    ),
+)
