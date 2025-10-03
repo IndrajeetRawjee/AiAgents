@@ -1,7 +1,3 @@
-Here is an updated README file for your AI agent. The disclaimer section is prominently added and all potentially risky encouragements are minimized. Security, safety, and awareness are emphasized throughout.[2][4][5][6]
-
-***
-
 # 🤖 AI Coding Agent with Gemini
 
 This project is a demonstration of building an autonomous **AI coding agent** using Google’s Gemini API, inspired by the *freeCodeCamp Guide to Agentic AI – Build a Python Coding Agent with Gemini* tutorial.
