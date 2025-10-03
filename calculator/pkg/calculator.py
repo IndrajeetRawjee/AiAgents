@@ -1,4 +1,4 @@
-# calculator.py
+import math
 
 class Calculator:
     def __init__(self):
@@ -7,12 +7,16 @@ class Calculator:
             "-": lambda a, b: a - b,
             "*": lambda a, b: a * b,
             "/": lambda a, b: a / b,
+            "sqrt": lambda a: math.sqrt(a),
+            "**": lambda a, b: a ** b,
         }
         self.precedence = {
             "+": 1,
             "-": 1,
             "*": 2,
             "/": 2,
+            "sqrt": 3,
+            "**": 3,
         }
 
     def evaluate(self, expression):
@@ -53,9 +57,15 @@ class Calculator:
             return
 
         operator = operators.pop()
-        if len(values) < 2:
-            raise ValueError(f"not enough operands for operator {operator}")
+        if operator == "sqrt":
+            if len(values) < 1:
+                raise ValueError(f"not enough operands for operator {operator}")
+            a = values.pop()
+            values.append(self.operators[operator](a))
+        else:
+            if len(values) < 2:
+                raise ValueError(f"not enough operands for operator {operator}")
 
-        b = values.pop()
-        a = values.pop()
-        values.append(self.operators[operator](a, b))
+            b = values.pop()
+            a = values.pop()
+            values.append(self.operators[operator](a, b))
